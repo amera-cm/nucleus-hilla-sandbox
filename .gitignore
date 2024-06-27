@@ -1,0 +1,9 @@
+# Ignore Gradle project-specific cache directory
+.gradle
+.idea
+
+# Ignore Gradle build output directory
+build
+
+/hilla-ui-boot/frontend/generated/
+/hilla-ui-boot/node_modules/

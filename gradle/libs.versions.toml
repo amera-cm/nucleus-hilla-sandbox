@@ -1,0 +1,80 @@
+# https://docs.gradle.org/current/userguide/platforms.html#sub::toml-dependencies-format
+[versions]
+nucleus-bom = "1.0.0-SNAPSHOT"
+hilla = "24.4.2"
+hilla-starter = "2.5.7"
+vaadin = "24.4.3"
+lineAwesome = "2.0.0"
+
+[libraries]
+camunda-bom = { module = "org.camunda.bpm:camunda-bom" }
+camunda-engine = { module = "org.camunda.bpm:camunda-engine" }
+camunda-keycloak-integration = { module = "org.camunda.bpm.extension:camunda-platform-7-keycloak" }
+camunda-restCoreJakarta = { module = "org.camunda.bpm:camunda-engine-rest-core-jakarta" }
+camunda-springBoot-starter = { module = "org.camunda.bpm.springboot:camunda-bpm-spring-boot-starter" }
+camunda-springBoot-starter-extTaskClient = { module = "org.camunda.bpm.springboot:camunda-bpm-spring-boot-starter-external-task-client" }
+camunda-springBoot-starter-rest = { module = "org.camunda.bpm.springboot:camunda-bpm-spring-boot-starter-rest" }
+camunda-springBoot-starter-webapp = { module = "org.camunda.bpm.springboot:camunda-bpm-spring-boot-starter-webapp" }
+checkstyle = { module = "com.puppycrawl.tools:checkstyle" }
+commonsLang3 = { module = "org.apache.commons:commons-lang3" }
+dependencyManagement-plugin = { module = "io.spring.gradle:dependency-management-plugin" }
+either = { module = "com.spencerwi:Either.java" }
+guava = { module = "com.google.guava:guava" }
+h2 = { module = "com.h2database:h2" }
+hamcrestLibrary = { module = "org.hamcrest:hamcrest-library" }
+hikariCp = { module = "com.zaxxer:HikariCP" }
+jackson-datatype-jdk8 = { module = "com.fasterxml.jackson.datatype:jackson-datatype-jdk8" }
+jackson-datatype-jsr310 = { module = "com.fasterxml.jackson.datatype:jackson-datatype-jsr310" }
+junitJupiter-api = { module = "org.junit.jupiter:junit-jupiter-api" }
+junitJupiter-engine = { module = "org.junit.jupiter:junit-jupiter-engine" }
+keycloak-adminClient = { module = "org.keycloak:keycloak-admin-client" }
+log4j-api = { module = "org.apache.logging.log4j:log4j-api" }
+lombok = { module = "org.projectlombok:lombok" }
+mockito-core = { module = "org.mockito:mockito-core" }
+nucleus-bom = { module = "io.cmt.nucleus:nucleus-bom", version.ref = "nucleus-bom" }
+nucleus-events = { module = "io.cmt.nucleus:events" }
+nucleus-events-api = { module = "io.cmt.nucleus:events-api" }
+nucleus-events-notifications-api = { module = "io.cmt.nucleus:notifications-events-api" }
+nucleus-events-serializers = { module = "io.cmt.nucleus:events-serializers" }
+nucleus-events-starter = { module = "io.cmt.nucleus:events-starter" }
+servlet-api = { module = "jakarta.servlet:jakarta.servlet-api" }
+sonarqube-plugin = { module = "org.sonarsource.scanner.gradle:sonarqube-gradle-plugin" }
+spotbugs-annotations = { module = "com.github.spotbugs:spotbugs-annotations" }
+spotbugs-plugin = { module = "com.github.spotbugs.snom:spotbugs-gradle-plugin" }
+spring-context = { module = "org.springframework:spring-context" }
+spring-contextSupport = { module = "org.springframework:spring-context-support" }
+spring-security-core = { module = "org.springframework.security:spring-security-core" }
+spring-security-oauth2Client = { module = "org.springframework.security:spring-security-oauth2-client" }
+spring-security-oauth2Jose = { module = "org.springframework.security:spring-security-oauth2-jose" }
+spring-web = { module = "org.springframework:spring-web" }
+spring-webMvc = { module = "org.springframework:spring-webmvc" }
+springBoot-dependencies = { module = "org.springframework.boot:spring-boot-dependencies" }
+springBoot-devtools = { module = "org.springframework.boot:spring-boot-devtools" }
+springBoot-plugin = { module = "org.springframework.boot:spring-boot-gradle-plugin" }
+springBoot-starter = { module = "org.springframework.boot:spring-boot-starter" }
+springBoot-starter-actuator = { module = "org.springframework.boot:spring-boot-starter-actuator" }
+springBoot-starter-log4j2 = { module = "org.springframework.boot:spring-boot-starter-log4j2" }
+springBoot-starter-oauth2-client = { module = "org.springframework.boot:spring-boot-starter-oauth2-client" }
+springBoot-starter-oauth2-resourceServer = { module = "org.springframework.boot:spring-boot-starter-oauth2-resource-server" }
+springBoot-starter-security = { module = "org.springframework.boot:spring-boot-starter-security" }
+springBoot-starter-test = { module = "org.springframework.boot:spring-boot-starter-test" }
+springBoot-starter-thymeleaf = { module = "org.springframework.boot:spring-boot-starter-thymeleaf" }
+springBoot-starter-web = { module = "org.springframework.boot:spring-boot-starter-web" }
+vaadin-bom = { module = "com.vaadin:vaadin-bom", version.ref = "vaadin" }
+vaadin-core = { module = "com.vaadin:vaadin-core", version.ref = "vaadin" }
+vaadin-plugin = { module = "com.vaadin:vaadin-gradle-plugin", version.ref = "vaadin" }
+vaadin-springBoot-starter = { module = "com.vaadin:vaadin-spring-boot-starter", version.ref = "vaadin" }
+hilla-springBoot-starter = { module = "dev.hilla:hilla-react-spring-boot-starter", version.ref = "hilla-starter" }
+hilla-bom = { module = "com.vaadin:hilla-bom", version.ref = "hilla" }
+hilla-core = { module = "com.vaadin:hilla", version.ref = "hilla" }
+hilla-plugin = { module = "com.vaadin:hilla-gradle-plugin", version.ref = "hilla" }
+lineAwesome = { module = "org.parttio:line-awesome", version.ref = "lineAwesome" }
+
+[plugins]
+cmtbuild-commonsConventions = { id = "cmtbuild.commons" }
+cmtbuild-javaConventions = { id = "cmtbuild.java-conventions" }
+cmtbuild-libraryConventions = { id = "cmtbuild.library-conventions" }
+cmtbuild-springBootConventions = { id = "cmtbuild.spring-boot-conventions" }
+sonarqube = { id = "org.sonarqube" }
+vaadin = { id = "com.vaadin" }
+hilla = { id = "com.vaadin.hilla" }
