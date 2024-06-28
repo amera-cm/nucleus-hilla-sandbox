@@ -27,12 +27,11 @@ public class HelloReactEndpoint {
 
   @Nonnull
   public String sayHello(@Nonnull String name) {
-    final var auth = SecurityContextHolder.getContext().getAuthentication();
+    // JwtAuthenticationToken [Principal=org.springframework.security.oauth2.jwt.Jwt@15d71cd, Credentials=[PROTECTED], Authenticated=true, Details=WebAuthenticationDetails [RemoteIpAddress=0:0:0:0:0:0:0:1, SessionId=942050E2073AE51A0B4132486C3D636B], Granted Authorities=[default-roles-nukleus, SUPERUSER, offline_access, uma_authorization, USER]]
+    final var auth = (JwtAuthenticationToken) SecurityContextHolder.getContext().getAuthentication();
     logger.info(auth.getAuthorities());
-    final var authToken =
-        (JwtAuthenticationToken) VaadinRequest.getCurrent().getUserPrincipal();
-    final var jwt = authToken.getToken();
-    logger.info(jwt);
+    final var jwt = auth.getToken();
+    logger.info(jwt.getExpiresAt());
     if (name.isEmpty()) {
       return "Hello stranger (%s)".formatted(jwt.getClaimAsString("email"));
     } else {

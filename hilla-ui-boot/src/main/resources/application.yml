@@ -1,0 +1,8 @@
+vaadin:
+  endpoint:
+    prefix: uiops
+  allowed-packages: no/packages/to/scan
+  exclude-urls:
+    - /api/**
+    - /openid/**
+    - /public/**

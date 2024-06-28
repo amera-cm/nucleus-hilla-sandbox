@@ -20,7 +20,7 @@ export default function MainAppLayout() {
             <h1 slot="navbar" style={h1Style}>
                 Nucleus Hilla
             </h1>
-            <div slot="drawer" className="h-full w-full">
+            <div slot="drawer" className="mainDrawerWrapper h-full w-full">
                 <MainDrawer/>
             </div>
 

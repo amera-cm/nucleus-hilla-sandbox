@@ -1,10 +1,11 @@
-import React, {useRef} from 'react';
-import {SideNav, type SideNavElement} from '@vaadin/react-components/SideNav.js';
-import {SideNavItem} from '@vaadin/react-components/SideNavItem.js';
+import React from 'react';
+import {MenuProps, routes, ViewRouteObject} from 'Frontend/routes.js';
+import {NavLink} from 'react-router-dom';
+import {Item} from '@vaadin/react-components/Item.js';
+import {Scroller} from '@vaadin/react-components/Scroller.js';
 import {Icon} from '@vaadin/react-components/Icon.js';
-import router, {MenuProps, routes, ViewRouteObject} from 'Frontend/routes.js';
-import {VerticalLayout} from '@vaadin/react-components/VerticalLayout.js';
-import '@vaadin/icons/';
+import reactIcon from 'Frontend/themes/hilla/line-awesome/svg/react.svg';
+import css from './MainDrawer.module.css';
 
 type MenuRoute = ViewRouteObject &
     Readonly<{
@@ -13,21 +14,28 @@ type MenuRoute = ViewRouteObject &
     }>;
 
 export default function MainDrawer() {
-    const sideNavRef = useRef<SideNavElement>(null);
     const menuRoutes = (routes[0]?.children || []).filter(
         (route) => route.path && route.handle && route.handle.icon && route.handle.caption
     ) as readonly MenuRoute[];
 
     return (
-        <VerticalLayout>
-            <SideNav className="h-full w-full" id="sideNav" ref={sideNavRef}>
+        <Scroller scroll-direction="vertical">
+            <nav>
                 {menuRoutes.map(({path, handle: {icon, caption}}) => (
-                    <SideNavItem path={router.basename + path}>
-                        <Icon icon={icon} slot="prefix"/>
-                        {caption}
-                    </SideNavItem>
+                    <NavLink
+                        className={({isActive}) => `${css.navlink} ${isActive ? css.navlink_active : ''}`}
+                        key={path}
+                        to={path}
+                    >
+                        {({isActive}) => (
+                            <Item key={path} selected={isActive}>
+                                <Icon src={reactIcon}/>
+                                {caption}
+                            </Item>
+                        )}
+                    </NavLink>
                 ))}
-            </SideNav>
-        </VerticalLayout>
+            </nav>
+        </Scroller>
     );
 }
