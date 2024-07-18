@@ -6,3 +6,17 @@ vaadin:
     - /api/**
     - /openid/**
     - /public/**
+
+kc:
+  client:
+    id: amt
+    secret: <set as enn var KC_CLIENT_SECRET >
+  server:
+    host: https://iam.cmtdev.com
+  realm:
+    name: jamc
+  endpoints:
+    auth: ${kc.server.host}/realms/${kc.realm.name}/protocol/openid-connect/auth
+    token: ${kc.server.host}/realms/${kc.realm.name}/protocol/openid-connect/token
+    logout: ${kc.server.host}/realms/${kc.realm.name}/protocol/openid-connect/logout
+    jwk-set: ${kc.server.host}/realms/${kc.realm.name}/protocol/openid-connect/certs

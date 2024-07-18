@@ -35,6 +35,7 @@ export default function MainDrawer() {
                         )}
                     </NavLink>
                 ))}
+                <a href="/openid/logout">Logout</a>
             </nav>
         </Scroller>
     );

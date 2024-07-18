@@ -25,6 +25,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.util.UriComponentsBuilder;
 
 @Controller
 @RequestMapping("/openid")
@@ -67,9 +68,21 @@ public class AuthController {
     model.addAttribute("state", state);
     model.addAttribute("access_token", tokens.access_token());
 
-    final var redirectTo = cookieValue("cb_redirect_to", request).orElse("/");
+    final var redirectTo = cookieValue("cb_redirect_to", request).orElse("/ui/");
 
     return new ModelAndView("redirect:" + redirectTo);
+  }
+
+  @GetMapping("/logout")
+  public ModelAndView logout(HttpServletRequest request,
+                             HttpServletResponse response,
+                             ModelMap model) {
+    final var idToken = cookieValue("id_token", request);
+    if (idToken.isPresent()) {
+      deleteCookies(response);
+      logoutFromKeycloak(idToken.get());
+    }
+    return new ModelAndView("redirect:/openid/auth");
   }
 
   private void updateCookies(HttpServletResponse response, TokenBody tokens) {
@@ -89,6 +102,14 @@ public class AuthController {
         DateTimeFormatter.ISO_LOCAL_DATE_TIME), tokens.refresh_expires_in()));
   }
 
+  private void deleteCookies(HttpServletResponse response) {
+    response.addCookie(createCookie("access_token", "", 0));
+    response.addCookie(createCookie("refresh_token", "", 0));
+    response.addCookie(createCookie("id_token", "", 0));
+    response.addCookie(createCookie("access_token_valid_until", "", 0));
+    response.addCookie(createCookie("refresh_token_valid_until", "", 0));
+  }
+
   private TokenBody tokens(String code) {
     final var restTemplate = new RestTemplate();
     final var headers = new HttpHeaders();
@@ -102,8 +123,7 @@ public class AuthController {
 
     final var request = new HttpEntity<>(payload, headers);
 
-    final var tokenUrl = "http://localhost:8180/realms/nukleus/protocol/openid-connect/token";
-    final var response = restTemplate.postForEntity(tokenUrl, request, String.class);
+    final var response = restTemplate.postForEntity(kcCfg.tokenEndpoint(), request, String.class);
     logger.info("response: {}", response.getBody());
 
     final var objectMapper = new ObjectMapper();
@@ -111,6 +131,21 @@ public class AuthController {
       return objectMapper.readValue(response.getBody(), TokenBody.class);
     } catch (JsonProcessingException e) {
       throw new RuntimeException(e);
+    }
+  }
+
+  private void logoutFromKeycloak(String idToken) {
+    final var restTemplate = new RestTemplate();
+    final var builder =
+        UriComponentsBuilder.fromUriString(kcCfg.logoutEndpoint())
+            .queryParam("id_token_hint", idToken);
+
+    final var logoutResponse =
+        restTemplate.getForEntity(builder.toUriString(), String.class);
+    if (logoutResponse.getStatusCode().is2xxSuccessful()) {
+      logger.info("Successfully logged out from Keycloak");
+    } else {
+      logger.error("Could not propagate logout to Keycloak");
     }
   }
 

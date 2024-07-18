@@ -24,4 +24,8 @@ hilla {
 
 application {
     mainClass.set("io.cmt.nucleus.hilla_sandbox.ui.boot.HillaUiBootApp")
+    applicationDefaultJvmArgs = listOf(
+        "-Djavax.net.ssl.trustStore=${System.getenv("NUCLEUS_TRUSTSTORE")}",
+        "-Djavax.net.ssl.trustStorePassword=${System.getenv("NUCLEUS_TRUSTSTORE_PASS")}",
+    )
 }
